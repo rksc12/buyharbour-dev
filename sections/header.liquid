@@ -98,6 +98,31 @@
     min-width: 4.4rem;
     height: 4.4rem;
   }
+</style><style>
+.section-header .header{background:#fff}
+.section-header .header__search{min-width:0}
+.section-header .header__heading-link .h2{font-family:Inter,sans-serif;font-size:38px;font-weight:800;letter-spacing:-1px;color:#0A57FF}
+.section-header .header__search .field__input{height:52px;border:2px solid #0A57FF;border-radius:14px;padding:0 82px 0 18px;background:#fff;font-family:Inter,sans-serif;font-size:16px}
+.section-header .header__search .field__input::placeholder{color:#64748B;opacity:1}
+.section-header .header__search .search__button{width:64px;height:48px;top:2px;right:2px;border-radius:0 12px 12px 0;background:#071B36;color:#fff;transition:background-color 180ms ease}
+.section-header .header__search .search__button:hover{background:#0A57FF}
+.section-header .header__icons{gap:26px}
+.section-header .header__icon{color:#111827}
+.section-header .header__icon .svg-wrapper,.section-header .header__icon .svg-wrapper svg{width:22px;height:22px}
+.section-header .cart-count-bubble{width:20px;min-width:20px;height:20px;min-height:20px;background:#0A57FF;color:#fff;font-size:11px}
+.section-header .header__inline-menu{min-height:48px;border-top:1px solid #F1F5F9}
+.section-header .header__menu-item{color:#111827;font-family:Inter,sans-serif;font-size:15px;font-weight:600;transition:color 180ms ease}
+.section-header .header__menu-item:hover,.section-header .header__active-menu-item{color:#0A57FF}
+@media(min-width:990px){
+.section-header .header{max-width:1440px;margin:0 auto;grid-template-columns:220px minmax(0,1fr) 220px;grid-template-rows:84px 48px;column-gap:0;row-gap:0;min-height:132px;padding:0 32px}
+.section-header .header__heading{grid-column:1;grid-row:1}
+.section-header .header__search{grid-column:2;grid-row:1;padding:0 28px}
+.section-header .header__icons{grid-column:3;grid-row:1;justify-self:end}
+.section-header .header__inline-menu{grid-column:1/-1;grid-row:2;width:100%}
+.section-header .header__inline-menu>nav>ul{min-height:48px;gap:34px;align-items:center}
+}
+@media(max-width:989px){.section-header .header{min-height:72px;padding-left:16px;padding-right:16px}}
+@media(max-width:749px){.section-header .header__heading-link .h2{font-size:28px}.section-header .header__icons{gap:12px}.section-header .header__inline-menu{display:none}}
 </style>
 
 {%- style -%}
@@ -137,14 +162,14 @@
 {% liquid
   assign header_tag = 'div'
 
-  if section.settings.sticky_header_type != 'none'
+  if section.settings.sticky_header_type == 'always'
     assign header_tag = 'sticky-header'
   endif
 %}
 
 <{{ header_tag }}
   {% if header_tag == 'sticky-header' %}
-    data-sticky-type="{{ section.settings.sticky_header_type }}"
+    data-sticky-type="always"
   {% endif %}
   class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
 >
@@ -164,7 +189,7 @@
       assign language_selector = true
     endif
   -%}
-  <div class="bh-main-row-inner">  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
+<header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
     {%- liquid
       assign render_search_left = false
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank or shop.customer_accounts_enabled
@@ -317,7 +342,6 @@
       </a>
     </div>
   </header>
-</div>
 </{{ header_tag }}>
 
 {%- if settings.cart_type == 'notification' -%}
@@ -481,41 +505,6 @@
     "url": {{ request.origin | append: page.url | json }}
   }
 </script>
-
-<style>
-  .bh-header-shell{background:#fff;position:relative;z-index:20}
-  .bh-utility{background:#062a59;color:#fff;font-size:1.2rem}
-  .bh-utility__inner{max-width:140rem;margin:0 auto;min-height:3.4rem;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.6rem}
-  .bh-utility__right{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
-  .bh-main-row{border-bottom:1px solid rgba(7,27,54,.08)}
-  .bh-main-row .header{box-shadow:0 2px 14px rgba(7,27,54,.06)}
-  .bh-main-row .search-modal__form{max-width:none}
-  .bh-main-row .header__search .field__input{border-radius:10px 0 0 10px}
-  .bh-main-row .header__search .search__button{background:#062a59;color:#fff;border-radius:0 10px 10px 0}
-  .bh-main-row .header__icon--wishlist{display:flex}
-  .bh-wishlist-link{display:none}
-  @media screen and (min-width:990px){.bh-main-row .header__search{min-width:36rem}.bh-main-row .header{grid-template-columns:auto 1fr auto;column-gap:3rem}.bh-main-row .header__inline-menu{grid-column:1/-1;grid-row:2;justify-self:stretch}.bh-main-row .header__icons{grid-column:3}.bh-main-row .header__heading{grid-column:1}.bh-main-row .header__search{grid-column:2;grid-row:1}}
-  @media screen and (max-width:749px){.bh-utility__left{display:none}.bh-utility__right{width:100%;justify-content:center}.bh-main-row .header__search{min-width:0}}
-</style>
-
-<div class="bh-header-shell">
-  <div class="bh-utility"><div class="bh-utility__inner"><div class="bh-utility__left">Authentic Global Products <span aria-hidden="true">|</span> Delivered to India</div><div class="bh-utility__right"><span>🇺🇸 USA</span><span>🇬🇧 UK</span><span>🇨🇦 Canada</span><a href="/pages/track-order" style="color:inherit;text-decoration:none">Track Order</a><a href="/pages/help-center" style="color:inherit;text-decoration:none">Help Center</a><span>{{ cart.currency.iso_code }}</span><span>{{ localization.language.iso_code | upcase }}</span></div></div></div>
-  <div class="bh-main-row">
-  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": {{ shop.name | json }},
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {{ potential_action_target | json }},
-        "query-input": "required name=search_term_string"
-      },
-      "url": {{ request.origin | append: page.url | json }}
-    }
-  </script>
-{%- endif -%}
 
 {% schema %}
 {
