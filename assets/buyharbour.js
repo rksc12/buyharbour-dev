@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.bh-search').forEach((form)=>form.addEventListener('submit',()=>{form.classList.add('is-submitting');}));});

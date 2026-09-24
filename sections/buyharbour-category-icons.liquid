@@ -1,0 +1,2 @@
+<div class="bh-shell bh-section"><div class="bh-icons">{% assign cats='Electronics|Fashion|Beauty|Watches|Home & Kitchen|Toys & Games|Pet Care|Books & Media|Automotive|Sports & Outdoors' | split:'|' %}{% assign icons='💻|👟|🧴|⌚|🍳|🧸|🐕|📚|🚗|⛺' | split:'|' %}{% for cat in cats %}<a class="bh-icon" href="{{ routes.all_products_collection_url }}"><div class="bh-icon__circle">{{ icons[forloop.index0] }}</div><span>{{ cat }}</span></a>{% endfor %}</div></div>
+{% schema %}{"name":"BuyHarbour Category Icons","settings":[],"presets":[{"name":"BuyHarbour Category Icons"}]}{% endschema %}

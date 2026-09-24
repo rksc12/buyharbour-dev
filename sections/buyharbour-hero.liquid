@@ -1,0 +1,24 @@
+<div class="bh-home bh-section"><section class="bh-hero-ref">
+  <div class="bh-hero-ref__copy">
+    <h1 class="bh-hero-ref__headline">{{ section.settings.heading | escape }}</h1>
+    <div class="bh-hero-ref__subheading">{{ section.settings.subheading }}</div>
+    <div class="bh-hero-ref__trust">
+      {% for block in section.blocks %}
+        <div class="bh-hero-ref__trust-item" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}{{ block.settings.icon | image_url: width: 64 | image_tag: loading:'lazy', widths:'32,64', sizes:'32px', alt:block.settings.label | escape }}{% endif %}
+          <span>{{ block.settings.label }}</span>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="bh-hero-ref__actions"><a class="bh-pill bh-pill--primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a><a class="bh-pill bh-pill--secondary" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a></div>
+  </div>
+  <div class="bh-hero-ref__visual" aria-label="{{ section.settings.hero_alt | escape }}">
+    {% if section.settings.background_image != blank %}{{ section.settings.background_image | image_url: width: 1800 | image_tag: class:'bh-hero-ref__bg', loading:'eager', widths:'900,1200,1600,1800', sizes:'(min-width:990px) 58vw, 100vw', alt:'' }}{% endif %}
+    {% if section.settings.globe_image != blank %}{{ section.settings.globe_image | image_url: width: 1100 | image_tag: class:'bh-hero-ref__globe', loading:'eager', widths:'550,800,1100', sizes:'55vw', alt:'' }}{% endif %}
+    {% if section.settings.product_layer_image != blank %}{{ section.settings.product_layer_image | image_url: width: 1200 | image_tag: class:'bh-hero-ref__products', loading:'eager', widths:'600,900,1200', sizes:'55vw', alt:'' }}{% endif %}
+    {% if section.settings.badge_image != blank %}<div class="bh-hero-ref__badge">{{ section.settings.badge_image | image_url: width: 420 | image_tag: loading:'lazy', widths:'210,320,420', sizes:'210px', alt:section.settings.badge_alt | escape }}</div>{% endif %}
+  </div>
+</section></div>
+{% schema %}
+{"name":"BuyHarbour Hero","settings":[{"type":"text","id":"heading","label":"Heading","default":"The World In Your Hands"},{"type":"richtext","id":"subheading","label":"Subheading","default":"<p>Authentic products from USA, UK & Canada.<br>Delivered to India.</p>"},{"type":"text","id":"primary_label","label":"Primary button","default":"Shop All Products →"},{"type":"url","id":"primary_link","label":"Primary link","default":"/collections/all"},{"type":"text","id":"secondary_label","label":"Secondary button","default":"▶ How It Works"},{"type":"url","id":"secondary_link","label":"Secondary link"},{"type":"image_picker","id":"background_image","label":"Right-side city/sky artwork"},{"type":"image_picker","id":"globe_image","label":"Globe artwork"},{"type":"image_picker","id":"product_layer_image","label":"Product collage artwork"},{"type":"image_picker","id":"badge_image","label":"Global Brands badge"},{"type":"text","id":"badge_alt","label":"Badge alt text","default":"Global Brands Happier You"},{"type":"text","id":"hero_alt","label":"Hero alt text","default":"Global brands and products delivered to India"}],"blocks":[{"type":"trust","name":"Trust item","limit":4,"settings":[{"type":"image_picker","id":"icon","label":"Icon"},{"type":"text","id":"label","label":"Label","default":"Global Shipping"}]}],"presets":[{"name":"BuyHarbour Hero","blocks":[{"type":"trust","settings":{"label":"Global Shipping"}},{"type":"trust","settings":{"label":"100% Authentic Products"}},{"type":"trust","settings":{"label":"Customs Handled"}},{"type":"trust","settings":{"label":"Dedicated Support"}}]}]}
+{% endschema %}
